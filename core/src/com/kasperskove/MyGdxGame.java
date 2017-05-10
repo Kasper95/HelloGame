@@ -10,8 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	float x, y;
-	
+	float x, y, xv, yv;
+	final static float MAX_VELOCITY = 100;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -36,20 +37,24 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	void move () {
-	    if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-	        y++;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            yv = MAX_VELOCITY;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            y--;
+            yv = MAX_VELOCITY * -1;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            x++;
+            xv = MAX_VELOCITY;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            x--;
+            xv = MAX_VELOCITY * -1;
         }
+
+        y += yv * Gdx.graphics.getDeltaTime();
+        x += xv * Gdx.graphics.getDeltaTime();
+
     }
 }
